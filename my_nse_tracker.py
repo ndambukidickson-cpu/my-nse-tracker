@@ -63,18 +63,17 @@ nse_data = {
     "CGEN":   {"name": "Car & General Kenya PLC", "price": 79.25, "change": 0.00, "score": 3.8}
 }
 
-# 2. Updated Portfolio Matrix featuring a dedicated "total_dps_received" line
-# Note: Put the TOTAL dividend cash amount per share you have received historically here.
+# 2. Your actual verified stock holding balances with confirmed total DPS values
 my_portfolio = {
-    "KCB":    {"shares": 8,    "my_buy_price": 68.93, "total_dps_received": 0.00, "yf_ticker": "KCB.NR"},
-    "KEGN":   {"shares": 30,   "my_buy_price": 9.46,  "total_dps_received": 0.00, "yf_ticker": "KEGN.KE"},
+    "KCB":    {"shares": 8,    "my_buy_price": 68.93, "total_dps_received": 7.00, "yf_ticker": "KCB.NR"},
+    "KEGN":   {"shares": 30,   "my_buy_price": 9.46,  "total_dps_received": 0.90, "yf_ticker": "KEGN.KE"},
     "LKL":    {"shares": 150,  "my_buy_price": 2.94,  "total_dps_received": 0.00, "yf_ticker": "LKL.KE"},
-    "NCBA":   {"shares": 9,    "my_buy_price": 41.50, "total_dps_received": 0.00, "yf_ticker": "NCBA.KE"},
-    "NSE":    {"shares": 31,   "my_buy_price": 8.20,  "total_dps_received": 0.00, "yf_ticker": "NSE.KE"},
+    "NCBA":   {"shares": 9,    "my_buy_price": 41.50, "total_dps_received": 7.10, "yf_ticker": "NCBA.KE"},
+    "NSE":    {"shares": 31,   "my_buy_price": 8.20,  "total_dps_received": 1.00, "yf_ticker": "NSE.KE"},
     "UCHM":   {"shares": 200,  "my_buy_price": 1.12,  "total_dps_received": 0.00, "yf_ticker": "UCHM.KE"},
-    "COOP":   {"shares": 10,   "my_buy_price": 30.00, "total_dps_received": 0.00, "yf_ticker": "COOP.NR"},
-    "ABSA":   {"shares": 5,    "my_buy_price": 29.49, "total_dps_received": 0.00, "yf_ticker": "ABSA.NR"},
-    "SCOM":   {"shares": 700,  "my_buy_price": 5.00,  "total_dps_received": 0.00, "yf_ticker": "SCOM.KE"}
+    "COOP":   {"shares": 10,   "my_buy_price": 30.00, "total_dps_received": 1.50, "yf_ticker": "COOP.NR"},
+    "ABSA":   {"shares": 5,    "my_buy_price": 29.49, "total_dps_received": 2.05, "yf_ticker": "ABSA.NR"},
+    "SCOM":   {"shares": 700,  "my_buy_price": 5.00,  "total_dps_received": 2.00, "yf_ticker": "SCOM.KE"}
 }
 
 # 3. Process Live Data Download & Math Operations
@@ -137,7 +136,6 @@ if portfolio_rows:
     # Financial KPI summary cards with added Dividend track
     col1, col2, col3, col4 = st.columns(4)
     
-    # Total performance includes equity market movement plus actual cash paid out via dividends
     total_net_return = (total_current_portfolio_value - total_invested_capital) + total_dividends_payout
     gain_percentage = (total_net_return / total_invested_capital * 100) if total_invested_capital > 0 else 0.0
     
