@@ -8,10 +8,7 @@ st.markdown("### Powered by Live Market Signals")
 
 # 1. Complete Database of Active NSE Listings (Grouped by Sector)
 nse_data = {
-    # TELECOMMUNICATIONS
     "SCOM":   {"name": "Safaricom Plc", "price": 30.05, "change": -0.45, "score": 4.2},
-    
-    # BANKING
     "ABSA":   {"name": "Absa Bank Kenya Plc", "price": 28.75, "change": -0.35, "score": 4.3},
     "BKG":    {"name": "BK Group Plc", "price": 51.50, "change": -1.00, "score": 4.0},
     "DTK":    {"name": "Diamond Trust Bank Kenya", "price": 149.25, "change": -0.25, "score": 4.1},
@@ -23,30 +20,22 @@ nse_data = {
     "SBIC":   {"name": "Stanbic Holdings Plc", "price": 294.50, "change": -0.75, "score": 4.4},
     "SCBK":   {"name": "Standard Chartered Bank", "price": 341.25, "change": +2.50, "score": 4.6},
     "COOP":   {"name": "Co-operative Bank of Kenya", "price": 32.50, "change": -0.15, "score": 4.4},
-
-    # ENERGY & PETROLEUM
     "KEGN":   {"name": "KenGen Plc", "price": 9.18, "change": 0.00, "score": 4.1},
     "KPLC":   {"name": "Kenya Power & Lighting", "price": 15.35, "change": -0.35, "score": 3.0},
     "TOTL":   {"name": "TotalEnergies Marketing", "price": 45.45, "change": -0.20, "score": 4.2},
     "UMME":   {"name": "Umeme Ltd", "price": 7.32, "change": 0.00, "score": 3.8},
-
-    # MANUFACTURING & ALLIED
     "BAT":    {"name": "British American Tobacco", "price": 513.00, "change": -3.00, "score": 4.5},
     "BOC":    {"name": "BOC Kenya Ltd", "price": 158.00, "change": +1.75, "score": 3.9},
     "CARB":   {"name": "Carbacid Investments", "price": 29.55, "change": +0.15, "score": 4.0},
     "EABL":   {"name": "East African Breweries", "price": 243.25, "change": +6.25, "score": 4.3},
     "EVRD":   {"name": "Eveready East Africa", "price": 1.13, "change": -0.01, "score": 1.5},
     "UNGA":   {"name": "Unga Group Ltd", "price": 27.00, "change": +0.10, "score": 3.1},
-
-    # AGRICULTURAL
     "EGAD":   {"name": "Eaagads Ltd", "price": 34.25, "change": +2.65, "score": 3.4},
     "KUKZ":   {"name": "Kakuzi Plc", "price": 417.50, "change": +0.75, "score": 4.0},
     "KAPC":   {"name": "Kapchorua Tea Company", "price": 256.00, "change": +2.50, "score": 4.1},
     "LIMT":   {"name": "Limuru Tea Company", "price": 480.00, "change": 0.00, "score": 3.5},
     "SASN":   {"name": "Sasini Plc", "price": 28.50, "change": -0.15, "score": 3.6},
     "WTK":    {"name": "Williamson Tea Kenya", "price": 135.00, "change": +1.75, "score": 4.2},
-
-    # COMMERCIAL AND SERVICES
     "XPRS":   {"name": "Express Kenya Ltd", "price": 7.06, "change": +0.06, "score": 2.1},
     "KQ":     {"name": "Kenya Airways Ltd", "price": 6.22, "change": -0.08, "score": 1.5},
     "LKL":    {"name": "Longhorn Publishers Ltd", "price": 2.83, "change": -0.24, "score": 3.0},
@@ -55,22 +44,16 @@ nse_data = {
     "SGL":    {"name": "Standard Group Ltd", "price": 6.42, "change": +0.38, "score": 2.0},
     "TPSE":   {"name": "TPS Eastern Africa (Serena)", "price": 15.60, "change": -0.20, "score": 3.2},
     "UCHM":   {"name": "Uchumi Supermarket", "price": 1.73, "change": -0.06, "score": 1.2},
-
-    # CONSTRUCTION & ALLIED
     "BAMB":   {"name": "Bamburi Cement PLC", "price": 54.00, "change": 0.00, "score": 3.8},
     "CRWN":   {"name": "Crown Paints Kenya PLC", "price": 62.25, "change": +0.50, "score": 3.7},
     "CABL":   {"name": "East African Cables PLC", "price": 1.71, "change": 0.00, "score": 2.2},
     "PORT":   {"name": "E.A. Portland Cement", "price": 78.00, "change": +0.50, "score": 2.5},
-
-    # INSURANCE
     "BRIT":   {"name": "Britam Holdings Ltd", "price": 12.50, "change": -0.05, "score": 3.6},
     "CIC":    {"name": "CIC Insurance Group", "price": 4.22, "change": -0.09, "score": 3.5},
     "JUB":    {"name": "Jubilee Holdings Ltd", "price": 372.25, "change": -7.75, "score": 4.4},
     "KNRE":   {"name": "Kenya Re-Insurance Corp", "price": 3.35, "change": -0.01, "score": 3.9},
     "LBTY":   {"name": "Liberty Kenya Holdings", "price": 9.80, "change": -0.04, "score": 3.4},
     "SLAM":   {"name": "Sanlam Kenya Plc", "price": 8.60, "change": -0.22, "score": 2.6},
-
-    # INVESTMENT & INVESTMENT SERVICES
     "CTUM":   {"name": "Centum Investment Co", "price": 13.85, "change": +0.20, "score": 3.6},
     "NSE":    {"name": "Nairobi Securities Exchange", "price": 19.85, "change": 0.00, "score": 4.4},
     "OCH":    {"name": "Olympia Capital Holdings", "price": 6.94, "change": +0.10, "score": 2.9},
@@ -80,23 +63,25 @@ nse_data = {
     "CGEN":   {"name": "Car & General Kenya PLC", "price": 79.25, "change": 0.00, "score": 3.8}
 }
 
-# 2. Your actual verified stock holding balances
+# 2. Updated Portfolio Matrix featuring a dedicated "total_dps_received" line
+# Note: Put the TOTAL dividend cash amount per share you have received historically here.
 my_portfolio = {
-    "KCB":    {"shares": 8,    "my_buy_price": 68.93, "yf_ticker": "KCB.KE"},
-    "KEGN":   {"shares": 30,   "my_buy_price": 9.46,  "yf_ticker": "KEGN.KE"},
-    "LKL":    {"shares": 150,  "my_buy_price": 2.94,  "yf_ticker": "LKL.KE"},
-    "NCBA":   {"shares": 9,    "my_buy_price": 41.50, "yf_ticker": "NCBA.KE"},
-    "NSE":    {"shares": 31,   "my_buy_price": 8.20,  "yf_ticker": "NSE.KE"},
-    "UCHM":   {"shares": 200,  "my_buy_price": 1.12,  "yf_ticker": "UCHM.KE"},
-    "COOP":   {"shares": 10,   "my_buy_price": 30.00, "yf_ticker": "COOP.KE"},
-    "ABSA":   {"shares": 5,    "my_buy_price": 29.49, "yf_ticker": "ABSA.KE"},
-    "SCOM":   {"shares": 700,  "my_buy_price": 5.00, "yf_ticker": "SCOM.KE"}
+    "KCB":    {"shares": 8,    "my_buy_price": 68.93, "total_dps_received": 0.00, "yf_ticker": "KCB.NR"},
+    "KEGN":   {"shares": 30,   "my_buy_price": 9.46,  "total_dps_received": 0.00, "yf_ticker": "KEGN.KE"},
+    "LKL":    {"shares": 150,  "my_buy_price": 2.94,  "total_dps_received": 0.00, "yf_ticker": "LKL.KE"},
+    "NCBA":   {"shares": 9,    "my_buy_price": 41.50, "total_dps_received": 0.00, "yf_ticker": "NCBA.KE"},
+    "NSE":    {"shares": 31,   "my_buy_price": 8.20,  "total_dps_received": 0.00, "yf_ticker": "NSE.KE"},
+    "UCHM":   {"shares": 200,  "my_buy_price": 1.12,  "total_dps_received": 0.00, "yf_ticker": "UCHM.KE"},
+    "COOP":   {"shares": 10,   "my_buy_price": 30.00, "total_dps_received": 0.00, "yf_ticker": "COOP.NR"},
+    "ABSA":   {"shares": 5,    "my_buy_price": 29.49, "total_dps_received": 0.00, "yf_ticker": "ABSA.NR"},
+    "SCOM":   {"shares": 700,  "my_buy_price": 5.00,  "total_dps_received": 0.00, "yf_ticker": "SCOM.KE"}
 }
 
 # 3. Process Live Data Download & Math Operations
 portfolio_rows = []
 total_invested_capital = 0.0
 total_current_portfolio_value = 0.0
+total_dividends_payout = 0.0
 
 st.info("🔄 Connecting to market order books and downloading live prices...")
 
@@ -116,8 +101,12 @@ for ticker, details in my_portfolio.items():
         current_value = details["shares"] * market_price
         profit_or_loss = current_value - total_cost
         
+        # Calculate dividends for this specific position
+        dividends_earned = details["shares"] * details["total_dps_received"]
+        
         total_invested_capital += total_cost
         total_current_portfolio_value += current_value
+        total_dividends_payout += dividends_earned
         
         if fundamental_score <= 2.2:
             signal = "🚨 LIQUIDATE / AVOID"
@@ -134,6 +123,7 @@ for ticker, details in my_portfolio.items():
             "Avg Cost": details["my_buy_price"],
             "Live Market Price": market_price,
             "Current Value": current_value,
+            "Dividends Earned": dividends_earned,
             "Profit / Loss": profit_or_loss,
             "Tactical Action": signal
         })
@@ -144,14 +134,17 @@ for ticker, details in my_portfolio.items():
 if portfolio_rows:
     df_portfolio = pd.DataFrame(portfolio_rows)
     
-    # Financial KPI summary cards
-    col1, col2, col3 = st.columns(3)
-    net_gain_loss = total_current_portfolio_value - total_invested_capital
-    gain_percentage = (net_gain_loss / total_invested_capital * 100) if total_invested_capital > 0 else 0.0
+    # Financial KPI summary cards with added Dividend track
+    col1, col2, col3, col4 = st.columns(4)
     
-    col1.metric("Total Value", f"KSh {total_current_portfolio_value:,.2f}")
+    # Total performance includes equity market movement plus actual cash paid out via dividends
+    total_net_return = (total_current_portfolio_value - total_invested_capital) + total_dividends_payout
+    gain_percentage = (total_net_return / total_invested_capital * 100) if total_invested_capital > 0 else 0.0
+    
+    col1.metric("Total Equity Value", f"KSh {total_current_portfolio_value:,.2f}")
     col2.metric("Total Invested", f"KSh {total_invested_capital:,.2f}")
-    col3.metric("Net Return", f"KSh {net_gain_loss:,.2f}", f"{gain_percentage:+.2f}%")
+    col3.metric("Dividends Cash", f"KSh {total_dividends_payout:,.2f}")
+    col4.metric("Total Net Return", f"KSh {total_net_return:,.2f}", f"{gain_percentage:+.2f}%")
     
     st.write("---")
     
@@ -160,6 +153,7 @@ if portfolio_rows:
     df_display["Avg Cost"] = df_display["Avg Cost"].map("KSh {:.2f}".format)
     df_display["Live Market Price"] = df_display["Live Market Price"].map("KSh {:.2f}".format)
     df_display["Current Value"] = df_display["Current Value"].map("KSh {:,.2f}".format)
+    df_display["Dividends Earned"] = df_display["Dividends Earned"].map("KSh {:,.2f}".format)
     df_display["Profit / Loss"] = df_display["Profit / Loss"].map("KSh {:+,.2f}".format)
     
     st.subheader("📊 My Active Portfolio Summary")
@@ -193,7 +187,7 @@ if portfolio_rows:
 
 st.write("---")
 
-# 6. RESTORED: Global Market Scanner Index (Displays all 50+ tickers)
+# 6. Global Market Scanner Index
 st.subheader("🌐 Global Market Reference Index")
 market_rows = []
 for ticker, info in nse_data.items():
