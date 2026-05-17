@@ -82,15 +82,15 @@ nse_data = {
 
 # 2. Your actual verified stock holding balances
 my_portfolio = {
-    "KCB":    {"shares": 8,    "my_buy_price": 40.00, "yf_ticker": "KCB.KE"},
-    "KEGN":   {"shares": 30,   "my_buy_price": 4.00,  "yf_ticker": "KEGN.KE"},
-    "LKL":    {"shares": 150,  "my_buy_price": 3.10,  "yf_ticker": "LKL.KE"},
+    "KCB":    {"shares": 8,    "my_buy_price": 68.93, "yf_ticker": "KCB.KE"},
+    "KEGN":   {"shares": 30,   "my_buy_price": 9.46,  "yf_ticker": "KEGN.KE"},
+    "LKL":    {"shares": 150,  "my_buy_price": 2.94,  "yf_ticker": "LKL.KE"},
     "NCBA":   {"shares": 9,    "my_buy_price": 41.50, "yf_ticker": "NCBA.KE"},
     "NSE":    {"shares": 31,   "my_buy_price": 8.20,  "yf_ticker": "NSE.KE"},
-    "UCHM":   {"shares": 200,  "my_buy_price": 0.30,  "yf_ticker": "UCHM.KE"},
-    "COOP":   {"shares": 10,   "my_buy_price": 13.00, "yf_ticker": "COOP.KE"},
-    "ABSA":   {"shares": 5,    "my_buy_price": 14.00, "yf_ticker": "ABSA.KE"},
-    "SCOM":   {"shares": 700,  "my_buy_price": 29.50, "yf_ticker": "SCOM.KE"}
+    "UCHM":   {"shares": 200,  "my_buy_price": 1.12,  "yf_ticker": "UCHM.KE"},
+    "COOP":   {"shares": 10,   "my_buy_price": 30.00, "yf_ticker": "COOP.KE"},
+    "ABSA":   {"shares": 5,    "my_buy_price": 29.49, "yf_ticker": "ABSA.KE"},
+    "SCOM":   {"shares": 700,  "my_buy_price": 5.00, "yf_ticker": "SCOM.KE"}
 }
 
 # 3. Process Live Data Download & Math Operations
