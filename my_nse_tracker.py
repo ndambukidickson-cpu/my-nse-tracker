@@ -82,7 +82,6 @@ total_invested_capital = 0.0
 total_current_portfolio_value = 0.0
 total_dividends_payout = 0.0
 
-# Flag to notify you if data is live or using baseline backup
 using_fallback = False
 
 for ticker, details in my_portfolio.items():
@@ -94,9 +93,8 @@ for ticker, details in my_portfolio.items():
         if not live_price_history.empty:
             market_price = float(live_price_history['Close'].iloc[-1])
     except Exception:
-        pass  # Silently skip network hurdles to trigger the fallback logic cleanly
+        pass
         
-    # SMART FALLBACK ENGINE: If Yahoo blocks us, pull directly from our internal index database
     if market_price is None or market_price == 0:
         market_price = nse_data[ticker]["price"]
         using_fallback = True
@@ -140,21 +138,30 @@ if using_fallback:
 else:
     st.success("🔄 Successfully connected to live market order books.")
 
-# 4. Display Dashboard Overview
+# 4. Display Dashboard Overview (Vertically Stacked for Mobile)
 if portfolio_rows:
     df_portfolio = pd.DataFrame(portfolio_rows)
     
-    col1, col2, col3, col4 = st.columns(4)
+    st.subheader("💰 Portfolio Performance Summary")
+    
     total_net_return = (total_current_portfolio_value - total_invested_capital) + total_dividends_payout
     gain_percentage = (total_net_return / total_invested_capital * 100) if total_invested_capital > 0 else 0.0
     
-    col1.metric("Total Equity Value", f"KSh {total_current_portfolio_value:,.2f}")
-    col2.metric("Total Invested", f"KSh {total_invested_capital:,.2f}")
-    col3.metric("Dividends Cash", f"KSh {total_dividends_payout:,.2f}")
-    col4.metric("Total Net Return", f"KSh {total_net_return:,.2f}", f"{gain_percentage:+.2f}%")
+    with st.container(border=True):
+        st.metric(label="Total Equity Value", value=f"KSh {total_current_portfolio_value:,.2f}")
+        
+    with st.container(border=True):
+        st.metric(label="Total Invested", value=f"KSh {total_invested_capital:,.2f}")
+        
+    with st.container(border=True):
+        st.metric(label="Dividends Cash", value=f"KSh {total_dividends_payout:,.2f}")
+        
+    with st.container(border=True):
+        st.metric(label="Total Net Return", value=f"KSh {total_net_return:,.2f}", delta=f"{gain_percentage:+.2f}%")
     
     st.write("---")
     
+    # Display table for active holdings
     df_display = df_portfolio.copy()
     df_display["Avg Cost"] = df_display["Avg Cost"].map("KSh {:.2f}".format)
     df_display["Live Market Price"] = df_display["Live Market Price"].map("KSh {:.2f}".format)
