@@ -6,7 +6,7 @@ import plotly.express as px
 st.title("📈 Live Nairobi Securities Exchange Portfolio Tracker")
 st.markdown("### Powered by Live Market Signals")
 
-# 1. Complete Database of Active NSE Listings (Grouped by Sector)
+# 1. Complete Database of Active NSE Listings (Serving as Live Baseline & Emergency Fallback)
 nse_data = {
     "SCOM":   {"name": "Safaricom Plc", "price": 30.05, "change": -0.45, "score": 4.2},
     "ABSA":   {"name": "Absa Bank Kenya Plc", "price": 28.75, "change": -0.35, "score": 4.3},
@@ -63,7 +63,7 @@ nse_data = {
     "CGEN":   {"name": "Car & General Kenya PLC", "price": 79.25, "change": 0.00, "score": 3.8}
 }
 
-# 2. Your actual verified stock holding balances with confirmed total DPS values
+# 2. Verified stock holding balances with confirmed total DPS values
 my_portfolio = {
     "KCB":    {"shares": 8,    "my_buy_price": 68.93, "total_dps_received": 7.00, "yf_ticker": "KCB.NR"},
     "KEGN":   {"shares": 30,   "my_buy_price": 9.46,  "total_dps_received": 0.90, "yf_ticker": "KEGN.KE"},
@@ -82,60 +82,69 @@ total_invested_capital = 0.0
 total_current_portfolio_value = 0.0
 total_dividends_payout = 0.0
 
-st.info("🔄 Connecting to market order books and downloading live prices...")
+# Flag to notify you if data is live or using baseline backup
+using_fallback = False
 
 for ticker, details in my_portfolio.items():
+    market_price = None
     try:
         stock_ticker_data = yf.Ticker(details["yf_ticker"])
         live_price_history = stock_ticker_data.history(period="1d")
         
         if not live_price_history.empty:
             market_price = float(live_price_history['Close'].iloc[-1])
-        else:
-            market_price = details["my_buy_price"]
-            
-        fundamental_score = nse_data[ticker]["score"]
+    except Exception:
+        pass  # Silently skip network hurdles to trigger the fallback logic cleanly
         
-        total_cost = details["shares"] * details["my_buy_price"]
-        current_value = details["shares"] * market_price
-        profit_or_loss = current_value - total_cost
+    # SMART FALLBACK ENGINE: If Yahoo blocks us, pull directly from our internal index database
+    if market_price is None or market_price == 0:
+        market_price = nse_data[ticker]["price"]
+        using_fallback = True
         
-        # Calculate dividends for this specific position
-        dividends_earned = details["shares"] * details["total_dps_received"]
+    fundamental_score = nse_data[ticker]["score"]
+    
+    total_cost = details["shares"] * details["my_buy_price"]
+    current_value = details["shares"] * market_price
+    profit_or_loss = current_value - total_cost
+    
+    # Calculate dividends
+    dividends_earned = details["shares"] * details["total_dps_received"]
+    
+    total_invested_capital += total_cost
+    total_current_portfolio_value += current_value
+    total_dividends_payout += dividends_earned
+    
+    if fundamental_score <= 2.2:
+        signal = "🚨 LIQUIDATE / AVOID"
+    elif market_price < details["my_buy_price"] * 0.95 and fundamental_score >= 4.2:
+        signal = "🟢 BUY THE DIP"
+    elif market_price > details["my_buy_price"] * 1.25:
+        signal = "💰 TAKE PROFIT"
+    else:
+        signal = "⏳ HOLD"
         
-        total_invested_capital += total_cost
-        total_current_portfolio_value += current_value
-        total_dividends_payout += dividends_earned
-        
-        if fundamental_score <= 2.2:
-            signal = "🚨 LIQUIDATE / AVOID"
-        elif market_price < details["my_buy_price"] * 0.95 and fundamental_score >= 4.2:
-            signal = "🟢 BUY THE DIP"
-        elif market_price > details["my_buy_price"] * 1.25:
-            signal = "💰 TAKE PROFIT"
-        else:
-            signal = "⏳ HOLD"
-            
-        portfolio_rows.append({
-            "Ticker": ticker,
-            "Shares": details["shares"],
-            "Avg Cost": details["my_buy_price"],
-            "Live Market Price": market_price,
-            "Current Value": current_value,
-            "Dividends Earned": dividends_earned,
-            "Profit / Loss": profit_or_loss,
-            "Tactical Action": signal
-        })
-    except Exception as error_msg:
-        st.warning(f"Could not load live updates for {ticker}.")
+    portfolio_rows.append({
+        "Ticker": ticker,
+        "Shares": details["shares"],
+        "Avg Cost": details["my_buy_price"],
+        "Live Market Price": market_price,
+        "Current Value": current_value,
+        "Dividends Earned": dividends_earned,
+        "Profit / Loss": profit_or_loss,
+        "Tactical Action": signal
+    })
 
-# 4. Display the Clean Executive Dashboard Overview
+# Status Banner Notification
+if using_fallback:
+    st.warning("⚠️ Yahoo Finance API is throttled by the cloud. Displaying cached reference indices.")
+else:
+    st.success("🔄 Successfully connected to live market order books.")
+
+# 4. Display Dashboard Overview
 if portfolio_rows:
     df_portfolio = pd.DataFrame(portfolio_rows)
     
-    # Financial KPI summary cards with added Dividend track
     col1, col2, col3, col4 = st.columns(4)
-    
     total_net_return = (total_current_portfolio_value - total_invested_capital) + total_dividends_payout
     gain_percentage = (total_net_return / total_invested_capital * 100) if total_invested_capital > 0 else 0.0
     
@@ -146,7 +155,6 @@ if portfolio_rows:
     
     st.write("---")
     
-    # Display table for active holdings
     df_display = df_portfolio.copy()
     df_display["Avg Cost"] = df_display["Avg Cost"].map("KSh {:.2f}".format)
     df_display["Live Market Price"] = df_display["Live Market Price"].map("KSh {:.2f}".format)
